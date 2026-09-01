@@ -1,0 +1,5 @@
+*.pkt.bak
+.DS_Store
+Thumbs.db
+grafana-data/
+prometheus-data/

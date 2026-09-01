@@ -1,0 +1,30 @@
+enable
+configure terminal
+hostname CORE-RTR
+no ip domain-lookup
+interface Loopback0
+ ip address 10.255.255.1 255.255.255.255
+interface GigabitEthernet0/0/0
+ description Management LAN
+ ip address 10.10.10.1 255.255.255.0
+ no shutdown
+snmp-server community MONITOR-RO RO
+snmp-server community MONITOR-RW RW
+snmp-server location HQ-DataCenter-Rack1
+snmp-server contact netops@lab.local
+snmp-server host 10.10.10.100 version 2c MONITOR-RO
+snmp-server enable traps snmp linkdown linkup
+snmp-server enable traps config
+logging host 10.10.10.100
+logging trap informational
+logging source-interface GigabitEthernet0/0/0
+service timestamps log datetime msec
+ntp server 10.10.10.100
+line con 0
+ exec-timeout 0 0
+line vty 0 4
+ password cisco
+ login
+ transport input ssh telnet
+end
+write memory

@@ -1,0 +1,91 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": { "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 0 }] },
+          "mappings": [{ "type": "value", "options": { "1": { "text": "UP", "color": "green" }, "2": { "text": "DOWN", "color": "red" } } }]
+        }
+      },
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "horizontal", "textMode": "auto", "colorMode": "background" },
+      "title": "Interface Status (ifOperStatus)",
+      "type": "stat",
+      "targets": [{ "expr": "ifOperStatus", "legendFormat": "{{ifDescr}}", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "fieldConfig": { "defaults": { "unit": "bytes" } },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "id": 2,
+      "options": { "tooltip": { "mode": "multi" } },
+      "title": "Interface Traffic — Bytes In (ifHCInOctets)",
+      "type": "timeseries",
+      "targets": [{ "expr": "rate(ifHCInOctets[5m])", "legendFormat": "{{ifDescr}} — In", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "fieldConfig": { "defaults": { "unit": "bytes" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "id": 3,
+      "options": { "tooltip": { "mode": "multi" } },
+      "title": "Interface Traffic — Bytes Out (ifHCOutOctets)",
+      "type": "timeseries",
+      "targets": [{ "expr": "rate(ifHCOutOctets[5m])", "legendFormat": "{{ifDescr}} — Out", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "id": 4,
+      "title": "Interface Errors (In + Out)",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(ifInErrors[5m])", "legendFormat": "{{ifDescr}} — Errors In", "refId": "A" },
+        { "expr": "rate(ifOutErrors[5m])", "legendFormat": "{{ifDescr}} — Errors Out", "refId": "B" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "fieldConfig": { "defaults": { "color": { "mode": "thresholds" }, "thresholds": { "steps": [{"color":"green","value":null},{"color":"yellow","value":0.5},{"color":"red","value":1}] } } },
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 14 },
+      "id": 5,
+      "title": "SNMP Scrape Duration (seconds)",
+      "type": "gauge",
+      "targets": [{ "expr": "snmp_scrape_duration_seconds", "legendFormat": "{{instance}}", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 20 },
+      "id": 6,
+      "title": "SNMP Collection Status",
+      "type": "stat",
+      "fieldConfig": { "defaults": { "mappings": [{"type":"value","options":{"1":{"text":"SUCCESS","color":"green"},"0":{"text":"FAILED","color":"red"}}}] } },
+      "targets": [{ "expr": "snmp_scrape_pdus_returned", "legendFormat": "{{instance}}", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "" },
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 20 },
+      "id": 7,
+      "title": "Prometheus Up Targets",
+      "type": "stat",
+      "targets": [{ "expr": "up", "legendFormat": "{{job}} — {{instance}}", "refId": "A" }]
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["network", "snmp", "monitoring"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "Network Monitoring — SNMP",
+  "uid": "network-snmp-dashboard",
+  "version": 1
+}

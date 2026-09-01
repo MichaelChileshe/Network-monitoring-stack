@@ -1,0 +1,13 @@
+enable
+configure terminal
+hostname MONITOR-SW
+interface range FastEthernet0/1-10
+ switchport mode access
+ spanning-tree portfast
+line con 0
+ exec-timeout 0 0
+line vty 0 4
+ password cisco
+ login
+end
+write memory
