@@ -70,7 +70,6 @@ network-monitoring-stack/
 │               └── network-monitoring.json
 ├── docs/
 │   ├── ip-addressing.md
-│   └── step-by-step-guide.md
 └── topology/
     └── (PT screenshots + Docker screenshots)
 ```
